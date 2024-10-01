@@ -1,6 +1,10 @@
 class House:
     houses_history = []
 
+    def __new__(cls, *args, **kwargs):
+        cls.houses_history.append(args[0])
+        return object.__new__(cls)
+
     def __init__(self, name, number_of_floors):
         self.name = name
         self.number_of_floors = number_of_floors  # Характеристика
@@ -42,10 +46,7 @@ class House:
         return f"Название: {self.name}, кол-во этажей: {self.number_of_floors}"
 
     def __del__(self):
-        print("<название> снесён, но он останется в истории")
-
-    def __new__(cls, *args, **kwargs):
-        return houses_history
+        print(f"{self.name} снесён, но он останется в истории")
 
     def __add__(self, value):
         if isinstance(value, House):
